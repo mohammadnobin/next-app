@@ -28,6 +28,9 @@ export default function Home() {
       <div>
         this is a grid layout
       </div>
+      <div>
+        this is a grid layout
+      </div>
       </div>
   );
 }
