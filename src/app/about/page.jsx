@@ -1,7 +1,20 @@
+'use client'
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
 const AboutPage = () => {
+  const router = useRouter()
+  const loginuser = true
+
+  const handleNavigate = ()=>{
+    if (loginuser) {
+      router.push('/about/address/one-address')
+    } else {
+      router.push('/')
+    }
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white flex items-center justify-center px-6 py-16">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -31,11 +44,9 @@ const AboutPage = () => {
             Address Page
           </button>
           </Link>
-          <Link href='/about/address/one-address'>
-          <button className="px-6 cursor-pointer py-3 bg-secondary text-white rounded-lg font-semibold hover:bg-secondary/80 transition">
+          <button onClick={handleNavigate} className="px-6 cursor-pointer py-3 bg-secondary text-white rounded-lg font-semibold hover:bg-secondary/80 transition">
             One Address Page
           </button>
-          </Link>
         </div>
       </div>
     </div>
