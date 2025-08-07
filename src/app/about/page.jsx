@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 
 const AboutPage = () => {
@@ -25,9 +26,16 @@ const AboutPage = () => {
             seamlessly. We focus on delivering a smooth and responsive experience 
             across all devices, helping you explore apps faster and smarter.
           </p>
-          <button className="px-6 py-3 bg-secondary text-white rounded-lg font-semibold hover:bg-secondary/80 transition">
-            Learn More
+          <Link href='/about/address'>
+          <button className="px-6 cursor-pointer py-3 bg-secondary text-white rounded-lg font-semibold hover:bg-secondary/80 transition">
+            Address Page
           </button>
+          </Link>
+          <Link href='/about/address/one-address'>
+          <button className="px-6 cursor-pointer py-3 bg-secondary text-white rounded-lg font-semibold hover:bg-secondary/80 transition">
+            One Address Page
+          </button>
+          </Link>
         </div>
       </div>
     </div>
