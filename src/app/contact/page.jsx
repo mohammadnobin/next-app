@@ -4,6 +4,9 @@ const contactPage = () => {
     return (
         <div className='font-bold text-4xl uppercase'>
             this is contactPage
+                   <div className='font-bold text-4xl uppercase'>
+            this is contactPage
+        </div>
         </div>
     );
 };
