@@ -1,8 +1,7 @@
-import Link from "next/link";
 import React from "react";
 
-const ServicesPage = () => {
-  const data = [
+const ServiceDatilspage = async ({ params }) => {
+  const FackData = [
     {
       id: 1,
       title: "Web Development",
@@ -77,39 +76,30 @@ const ServicesPage = () => {
     },
   ];
 
+    const { id } = await params;
+    const data = FackData.find(d => d.id == id)
   return (
-<div className="p-10 bg-gray-100 min-h-screen">
-  <h1 className="text-4xl font-bold uppercase text-center mb-10">
-    Services Page
-  </h1>
+    <div className="min-h-screen bg-gray-100 py-10 px-5">
+      <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-8">
+        <h1 className="text-3xl font-bold mb-4">{data.title}</h1>
+        <p className="text-gray-700 mb-6">{data.description}</p>
 
-  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-    {data.map((d) => (
-      <div
-        key={d.id}
-        className="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 flex flex-col justify-between"
-      >
-        <div>
-          <h2 className="text-2xl font-semibold mb-2">{d.title}</h2>
-          <p className="text-gray-600 mb-4">{d.description}</p>
-          <div className="flex justify-between items-center mb-4">
-            <span className="text-lg font-bold">${d.price}</span>
-            <span className="text-sm text-gray-500">{d.category}</span>
-          </div>
+        <div className="flex justify-between items-center mb-6">
+          <span className="text-xl font-semibold text-blue-600">
+            Price: ${data.price}
+          </span>
+          <span className="text-sm text-gray-500">{data.category}</span>
         </div>
-        <Link href={`/services/${d.id}`}>
-        <button
-          className="mt-auto bg-black hover:bg-black/90 cursor-pointer text-white font-semibold py-2 px-4 rounded transition-colors duration-300"
-          >
-          Details
-        </button>
-          </Link>
-      </div>
-    ))}
-  </div>
-</div>
 
+        <button
+          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded transition-colors duration-300"
+
+        >
+          Book Service
+        </button>
+      </div>
+    </div>
   );
 };
 
-export default ServicesPage;
+export default ServiceDatilspage;
