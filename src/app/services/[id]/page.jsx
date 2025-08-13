@@ -32,13 +32,13 @@ const ServiceDatilspage = async ({ params }) => {
       price: 800,
       category: "IT",
     },
-    // {
-    //   id: 5,
-    //   title: "Content Writing",
-    //   description: "High-quality content writing for blogs and websites.",
-    //   price: 100,
-    //   category: "Writing",
-    // },
+    {
+      id: 5,
+      title: "Content Writing",
+      description: "High-quality content writing for blogs and websites.",
+      price: 100,
+      category: "Writing",
+    },
     // {
     //   id: 6,
     //   title: "Video Editing",
