@@ -2,22 +2,22 @@ import Link from "next/link";
 
 const ServicesPage = () => {
   const data = [
-    // {
-    //   id: 1,
-    //   title: "Web Development",
-    //   description:
-    //     "Full-stack web application development using modern technologies.",
-    //   price: 500,
-    //   category: "IT",
-    // },
-    // {
-    //   id: 2,
-    //   title: "Graphic Design",
-    //   description:
-    //     "Creative and professional graphic design services for branding.",
-    //   price: 200,
-    //   category: "Design",
-    // },
+    {
+      id: 1,
+      title: "Web Development",
+      description:
+        "Full-stack web application development using modern technologies.",
+      price: 500,
+      category: "IT",
+    },
+    {
+      id: 2,
+      title: "Graphic Design",
+      description:
+        "Creative and professional graphic design services for branding.",
+      price: 200,
+      category: "Design",
+    },
     {
       id: 3,
       title: "SEO Optimization",
