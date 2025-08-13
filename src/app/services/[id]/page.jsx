@@ -53,13 +53,13 @@ const ServiceDatilspage = async ({ params }) => {
       price: 400,
       category: "Marketing",
     },
-    // {
-    //   id: 8,
-    //   title: "Photography",
-    //   description: "Professional photography for events and products.",
-    //   price: 350,
-    //   category: "Media",
-    // },
+    {
+      id: 8,
+      title: "Photography",
+      description: "Professional photography for events and products.",
+      price: 350,
+      category: "Media",
+    },
     // {
     //   id: 9,
     //   title: "UI/UX Design",
