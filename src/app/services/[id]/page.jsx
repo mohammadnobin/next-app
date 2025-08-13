@@ -60,13 +60,13 @@ const ServiceDatilspage = async ({ params }) => {
       price: 350,
       category: "Media",
     },
-    // {
-    //   id: 9,
-    //   title: "UI/UX Design",
-    //   description: "User interface and user experience design for apps.",
-    //   price: 450,
-    //   category: "Design",
-    // },
+    {
+      id: 9,
+      title: "UI/UX Design",
+      description: "User interface and user experience design for apps.",
+      price: 450,
+      category: "Design",
+    },
     // {
     //   id: 10,
     //   title: "Cybersecurity Audit",
