@@ -39,13 +39,13 @@ const ServiceDatilspage = async ({ params }) => {
       price: 100,
       category: "Writing",
     },
-    // {
-    //   id: 6,
-    //   title: "Video Editing",
-    //   description: "Professional video editing for social media and marketing.",
-    //   price: 250,
-    //   category: "Media",
-    // },
+    {
+      id: 6,
+      title: "Video Editing",
+      description: "Professional video editing for social media and marketing.",
+      price: 250,
+      category: "Media",
+    },
     // {
     //   id: 7,
     //   title: "Digital Marketing",
