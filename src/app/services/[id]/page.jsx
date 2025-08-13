@@ -18,13 +18,13 @@ const ServiceDatilspage = async ({ params }) => {
       price: 200,
       category: "Design",
     },
-    // {
-    //   id: 3,
-    //   title: "SEO Optimization",
-    //   description: "Improve your website ranking on search engines.",
-    //   price: 300,
-    //   category: "Marketing",
-    // },
+    {
+      id: 3,
+      title: "SEO Optimization",
+      description: "Improve your website ranking on search engines.",
+      price: 300,
+      category: "Marketing",
+    },
     // {
     //   id: 4,
     //   title: "Mobile App Development",
