@@ -10,14 +10,14 @@ const ServiceDatilspage = async ({ params }) => {
       price: 500,
       category: "IT",
     },
-    // {
-    //   id: 2,
-    //   title: "Graphic Design",
-    //   description:
-    //     "Creative and professional graphic design services for branding.",
-    //   price: 200,
-    //   category: "Design",
-    // },
+    {
+      id: 2,
+      title: "Graphic Design",
+      description:
+        "Creative and professional graphic design services for branding.",
+      price: 200,
+      category: "Design",
+    },
     // {
     //   id: 3,
     //   title: "SEO Optimization",
