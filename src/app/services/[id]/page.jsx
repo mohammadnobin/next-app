@@ -67,13 +67,13 @@ const ServiceDatilspage = async ({ params }) => {
       price: 450,
       category: "Design",
     },
-    // {
-    //   id: 10,
-    //   title: "Cybersecurity Audit",
-    //   description: "Security assessment and penetration testing services.",
-    //   price: 600,
-    //   category: "IT",
-    // },
+    {
+      id: 10,
+      title: "Cybersecurity Audit",
+      description: "Security assessment and penetration testing services.",
+      price: 600,
+      category: "IT",
+    },
   ];
 
     const { id } = await params;
