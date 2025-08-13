@@ -46,13 +46,13 @@ const ServiceDatilspage = async ({ params }) => {
       price: 250,
       category: "Media",
     },
-    // {
-    //   id: 7,
-    //   title: "Digital Marketing",
-    //   description: "Comprehensive digital marketing solutions.",
-    //   price: 400,
-    //   category: "Marketing",
-    // },
+    {
+      id: 7,
+      title: "Digital Marketing",
+      description: "Comprehensive digital marketing solutions.",
+      price: 400,
+      category: "Marketing",
+    },
     // {
     //   id: 8,
     //   title: "Photography",
