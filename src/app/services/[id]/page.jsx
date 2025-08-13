@@ -25,13 +25,13 @@ const ServiceDatilspage = async ({ params }) => {
       price: 300,
       category: "Marketing",
     },
-    // {
-    //   id: 4,
-    //   title: "Mobile App Development",
-    //   description: "Android and iOS app development services.",
-    //   price: 800,
-    //   category: "IT",
-    // },
+    {
+      id: 4,
+      title: "Mobile App Development",
+      description: "Android and iOS app development services.",
+      price: 800,
+      category: "IT",
+    },
     // {
     //   id: 5,
     //   title: "Content Writing",
