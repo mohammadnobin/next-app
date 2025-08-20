@@ -45,7 +45,7 @@ const AboutPage = () => {
           </button>
           </Link>
           <button onClick={handleNavigate} className="px-6 cursor-pointer py-3 bg-secondary text-white rounded-lg font-semibold hover:bg-secondary/80 transition">
-            One Address Pagegfhjgj
+            One Address Page
           </button>
         </div>
       </div>
