@@ -37,7 +37,7 @@ const AboutPage = () => {
           <p className="text-gray-300 leading-relaxed mb-6">
             CYBER APP is your one-stop hub for discovering and managing applications 
             seamlessly. We focus on delivering a smooth and responsive experience 
-           apps faster and smarter.
+            across all devices, helping you explore apps faster and smarter.
           </p>
           <Link href='/about/address'>
           <button className="px-6 cursor-pointer py-3 bg-secondary text-white rounded-lg font-semibold hover:bg-secondary/80 transition">
