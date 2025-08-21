@@ -1,24 +1,32 @@
 "use client";
-import { signIn } from 'next-auth/react';
-import React from 'react';
 import { FaGoogle } from "react-icons/fa";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+import { useEffect } from "react";
+export default function SocialLogin() {
+  const router = useRouter();
+  const session = useSession();
 
-const ScolialLogin = () => {
-    const handleSocialLogin = async (providerName) => {
-        const result = await signIn(providerName, {redirect: false})
-        console.log(result);
+  const handleSocialLogin = (providerName) => {
+    signIn(providerName);
+  };
+
+  useEffect(() => {
+    if (session?.status == "authenticated") {
+      router.push("/");
+      toast.success("Successfully Logged IN");
     }
-    return (
+  }, [session?.status]);
+
+  return (
     <div className="flex justify-center gap-8">
       <p
         onClick={() => handleSocialLogin("google")}
         className="bg-slate-200 rounded-full p-3"
       >
-        <FaGoogle type="button" />
+        <FaGoogle className="cursor-pointer" type="button" />
       </p>
-      
     </div>
-    );
-};
-
-export default ScolialLogin;
+  );
+}

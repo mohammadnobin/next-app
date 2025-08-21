@@ -11,7 +11,7 @@ const SignIN = () => {
         <SignInFrom />
 
         <p className="mt-4 text-center text-sm text-gray-600">
-          Create a new account? <Link href="/signup" className="text-blue-600 underline">Sign UP</Link>
+          Create a new account?<span><Link href="/signup" className="text-blue-600 underline">Sign UP</Link></span> 
         </p>
       </div>
       <ScolialLogin />

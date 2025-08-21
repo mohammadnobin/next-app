@@ -27,12 +27,12 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <NextAUthProvider>
-        <Navbar />
-        <Toaster />
-        <main className=" place-items-center place-content-center">
-        {children}
-        </main>
-        <Footer />
+          <Navbar />
+          <Toaster />
+          <main className=" place-items-center place-content-center">
+            {children}
+          </main>
+          <Footer />
         </NextAUthProvider>
       </body>
     </html>
