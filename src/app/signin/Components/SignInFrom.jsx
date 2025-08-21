@@ -9,7 +9,7 @@ const SignInFrom =  () => {
         const email = form.email.value;
         const password = form.password.value;
         await signIn ("credentials", {email, password})
-        console.log(email, password);
+
     }
     return (
         <form onSubmit={handleSignIn} className="space-y-4">
