@@ -1,9 +1,15 @@
 'use client'
+import { registerUser } from '@/app/actions/auth/registerUser';
 import React from 'react';
 
 const SignUPFrom = () => {
-    const handleSubmit = e =>{
+    const handleSubmit = async (e) =>{
         e.preventDefault()
+        const form = e.target;
+        const name = form.name.value;
+        const email = form.email.value;
+        const password = form.password.value;
+        registerUser({name, email, password});
     }
     return (
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -11,7 +17,7 @@ const SignUPFrom = () => {
             <label className="block text-gray-600 mb-1" htmlFor="name">Full Name</label>
             <input
               type="text"
-              id="name"
+              name="name"
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="John Doe"
             />
@@ -21,7 +27,7 @@ const SignUPFrom = () => {
             <label className="block text-gray-600 mb-1" htmlFor="email">Email Address</label>
             <input
               type="email"
-              id="email"
+              name="email"
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="example@example.com"
             />
@@ -31,7 +37,7 @@ const SignUPFrom = () => {
             <label className="block text-gray-600 mb-1" htmlFor="password">Password</label>
             <input
               type="password"
-              id="password"
+              name="password"
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="********"
             />
