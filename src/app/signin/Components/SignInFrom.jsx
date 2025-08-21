@@ -1,12 +1,14 @@
 'use client'
 import React from 'react';
+import {signIn} from 'next-auth/react'
 
-const SignInFrom = () => {
-    const handleSignIn = e =>{
+const SignInFrom =  () => {
+    const handleSignIn = async (e)=>{
         e.preventDefault()
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
+        await signIn ("credentials", {email, password})
         console.log(email, password);
     }
     return (
