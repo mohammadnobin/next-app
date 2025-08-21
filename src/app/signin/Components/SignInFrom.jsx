@@ -1,0 +1,41 @@
+'use client'
+import React from 'react';
+
+const SignInFrom = () => {
+    const handleSignIn = e =>{
+        e.preventDefault()
+    }
+    return (
+        <form onSubmit={handleSignIn} className="space-y-4">
+          <div>
+            <label className="block text-gray-600 mb-1" htmlFor="email">Email Address</label>
+            <input
+              type="email"
+              id="email"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="example@example.com"
+            />
+          </div>
+
+          <div>
+            <label className="block text-gray-600 mb-1" htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="********"
+            />
+          </div>
+
+
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition duration-200"
+          >
+            Sign In
+          </button>
+        </form>
+    );
+};
+
+export default SignInFrom;

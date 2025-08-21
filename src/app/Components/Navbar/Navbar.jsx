@@ -40,8 +40,10 @@ const Navbar = () => {
 
       {/* Sign In Button (Desktop Only) */}
       <div className="hidden md:block">
-        <button className="font-bold text-xl py-1.5 px-8 bg-white text-black rounded-3xl hover:bg-gray-200 transition">
-          Sign In
+        <button className="font-bold cursor-pointer text-xl py-1.5 px-8 bg-white text-black rounded-3xl hover:bg-gray-200 transition">
+          <Link href='/signin'>
+              Sign In
+              </Link>
         </button>
       </div>
 
@@ -79,9 +81,11 @@ const Navbar = () => {
             </li>
             <button
               onClick={() => setIsOpen(false)}
-              className="font-bold text-xl py-1.5 px-8 bg-white text-black rounded-3xl hover:bg-gray-200 transition"
+              className="font-bold cursor-pointer text-xl py-1.5 px-8 bg-white text-black rounded-3xl hover:bg-gray-200 transition"
             >
+              <Link href='/signin'>
               Sign In
+              </Link>
             </button>
           </ul>
         </div>
