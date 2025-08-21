@@ -5,6 +5,9 @@ import React, { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 
 const Navbar = () => {
+
+  const se
+
   const [isOpen, setIsOpen] = useState(false);
 
   return (
