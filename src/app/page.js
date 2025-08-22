@@ -1,15 +1,8 @@
-// export default function Home() {
-//   return (
-//     <div>
-//       hello world
-//       <div>this is a grid layout</div>
-//     </div>
-//   );
-// }
-
-
 'use client'
 import { ChevronDown, ShoppingBag, Star, ArrowRight, Menu, X, Zap, Shield, Globe, Users } from 'lucide-react';
+import ProjectSections from './Components/Home/ProjectSections';
+import Image from 'next/image';
+import Link from 'next/link';
 
 export default function page() {
 
@@ -80,7 +73,7 @@ export default function page() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="mb-8 animate-fade-in">
             <span className="inline-block px-4 py-2 bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 rounded-full text-purple-300 font-medium mb-6">
-              🚀 Next.js 15 Powered Platform
+              Next.js 15 Powered Platform
             </span>
           </div>
           
@@ -100,13 +93,17 @@ export default function page() {
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 animate-fade-in-up delay-600">
-            <button className="group bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-4 rounded-full font-semibold text-lg hover:from-purple-600 hover:to-pink-600 transition-all transform hover:scale-105 flex items-center space-x-2 shadow-2xl shadow-purple-500/25">
+                        <Link href='/product'>
+            <button className="group cursor-pointer bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-4 rounded-full font-semibold text-lg hover:from-purple-600 hover:to-pink-600 transition-all transform hover:scale-105 flex items-center space-x-2 shadow-2xl shadow-purple-500/25">
               <span>Explore Products</span>
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
-            <button className="border-2 border-slate-600 text-slate-300 px-8 py-4 rounded-full font-semibold text-lg hover:border-purple-400 hover:text-white transition-all transform hover:scale-105">
+                        </Link>
+            <Link href='/product'>
+            <button className="border-2 cursor-pointer border-slate-600 text-slate-300 px-8 py-4 rounded-full font-semibold text-lg hover:border-purple-400 hover:text-white transition-all transform hover:scale-105">
               Watch Demo
             </button>
+            </Link>
           </div>
         </div>
 
@@ -115,9 +112,69 @@ export default function page() {
           <ChevronDown className="w-8 h-8 text-slate-400" />
         </div>
       </section>
+        {/* Product Highlights */}
+      <section  className="py-24 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              <span className="bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">
+                Featured Products
+              </span>
+            </h2>
+            <p className="text-xl text-slate-400 max-w-2xl mx-auto">
+              Discover our handpicked selection of premium products that define excellence
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {products.map((product, index) => (
+              <div 
+                key={product.id}
+                className="group bg-gradient-to-b from-slate-800/30 to-slate-900/30 rounded-2xl overflow-hidden border border-slate-700/30 hover:border-purple-500/50 transition-all duration-300 hover:transform hover:scale-105"
+              >
+                <div className="relative overflow-hidden">
+                  <Image
+                  height={100}
+                  width={100} 
+                    src={product.image} 
+                    alt={product.name}
+                    className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
+                </div>
+                <div className="p-6">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-2xl font-bold text-purple-400">{product.price}</span>
+                    <div className="flex items-center space-x-1">
+                      <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                      <span className="text-slate-300">{product.rating}</span>
+                      <span className="text-slate-500">({product.reviews})</span>
+                    </div>
+                  </div>
+                  <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-purple-300 transition-colors">
+                    {product.name}
+                  </h3>
+                  <button className="w-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 text-purple-300 py-3 rounded-lg font-medium hover:from-purple-500 hover:to-pink-500 hover:text-white transition-all duration-300 flex items-center justify-center space-x-2">
+                    <span>View Details</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center my-12">
+            <Link href='/product'>
+            <button className="bg-gradient-to-r  cursor-pointer from-purple-500 to-pink-500 text-white px-8 py-4 rounded-full font-semibold text-lg hover:from-purple-600 hover:to-pink-600 transition-all transform hover:scale-105">
+              View All Products
+            </button>
+            </Link>
+          </div>
+        </div>
+      </section>
 
       {/* Features Section */}
-      <section className="py-24 relative">
+      <section className="pb-24 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
@@ -150,63 +207,9 @@ export default function page() {
           </div>
         </div>
       </section>
+                <ProjectSections />
 
-      {/* Product Highlights */}
-      <section  className="py-24 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              <span className="bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">
-                Featured Products
-              </span>
-            </h2>
-            <p className="text-xl text-slate-400 max-w-2xl mx-auto">
-              Discover our handpicked selection of premium products that define excellence
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {products.map((product, index) => (
-              <div 
-                key={product.id}
-                className="group bg-gradient-to-b from-slate-800/30 to-slate-900/30 rounded-2xl overflow-hidden border border-slate-700/30 hover:border-purple-500/50 transition-all duration-300 hover:transform hover:scale-105"
-              >
-                <div className="relative overflow-hidden">
-                  <img 
-                    src={product.image} 
-                    alt={product.name}
-                    className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
-                </div>
-                <div className="p-6">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-2xl font-bold text-purple-400">{product.price}</span>
-                    <div className="flex items-center space-x-1">
-                      <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                      <span className="text-slate-300">{product.rating}</span>
-                      <span className="text-slate-500">({product.reviews})</span>
-                    </div>
-                  </div>
-                  <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-purple-300 transition-colors">
-                    {product.name}
-                  </h3>
-                  <button className="w-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 text-purple-300 py-3 rounded-lg font-medium hover:from-purple-500 hover:to-pink-500 hover:text-white transition-all duration-300 flex items-center justify-center space-x-2">
-                    <span>View Details</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="text-center mt-12">
-            <button className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-4 rounded-full font-semibold text-lg hover:from-purple-600 hover:to-pink-600 transition-all transform hover:scale-105">
-              View All Products
-            </button>
-          </div>
-        </div>
-      </section>
+    
 
  
 
