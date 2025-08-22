@@ -92,7 +92,7 @@ const Navbar = () => {
           </button>
             </>
           ) :
-              (<button className="text-slate-300 cursor-pointer hover:text-white transition-colors font-medium">
+              (<button className="bg-gradient-to-r cursor-pointer from-purple-500 to-pink-500 text-white px-6 py-2 rounded-full font-medium hover:from-purple-600 hover:to-pink-600 transition-all transform hover:scale-105">
               <Link href="/signin">
                 Login
               </Link>
