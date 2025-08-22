@@ -29,9 +29,7 @@ export default function RootLayout({ children }) {
         <NextAUthProvider>
           <Navbar />
           <Toaster />
-          <main className=" place-items-center place-content-center">
             {children}
-          </main>
           <Footer />
         </NextAUthProvider>
       </body>
