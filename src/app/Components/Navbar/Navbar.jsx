@@ -162,12 +162,19 @@ const Navbar = () => {
             </div>
 
             <div className="hidden md:flex items-center space-x-4">
+              {status === "authenticated" ? (
+          <button
+            onClick={logOut}
+            className="bg-gradient-to-r cursor-pointer from-purple-500 to-pink-500 text-white px-6 py-2 rounded-full font-medium hover:from-purple-600 hover:to-pink-600 transition-all transform hover:scale-105"
+          >
+            Sign Out
+          </button>) :
+              (<button className="text-slate-300 cursor-pointer hover:text-white transition-colors font-medium">
               <Link href="/signin">
-              <button className="text-slate-300 cursor-pointer hover:text-white transition-colors font-medium">
                 Login
-              </button>
               </Link>
-              <button className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2 rounded-full font-medium hover:from-purple-600 hover:to-pink-600 transition-all transform hover:scale-105">
+              </button>) }
+              <button className="bg-gradient-to-r cursor-pointer from-purple-500 to-pink-500 text-white px-6 py-2 rounded-full font-medium hover:from-purple-600 hover:to-pink-600 transition-all transform hover:scale-105">
                 Get Started
               </button>
             </div>

@@ -1,129 +1,53 @@
-"use client";
-// import React from "react";
-// import { signIn } from "next-auth/react";
-// import { useRouter } from "next/navigation";
-// import toast from "react-hot-toast";
-
-// const SignInFrom = () => {
-//   const router = useRouter();
-
-//   const handleSignIn = async (e) => {
-//     e.preventDefault();
-//     const form = e.target;
-//     const email = form.email.value;
-//     const password = form.password.value;
-//     toast("Submitting.....");
-//     try {
-//       const response = await signIn("credentials", {
-//         email,
-//         password,
-//         redirect: false,
-//         callbackUrl: "/",
-//       });
-//       if (response.ok) {
-//         toast.success("Logged in successfully");
-//         router.push("/");
-//         form.reset();
-//       } else {
-//         toast.error("Feiled to log in ");
-//       }
-//     } catch (error) {
-//           toast.error("Feiled to log in ");
-//     }
-//   };
-//   return (
-//     <form onSubmit={handleSignIn} className="space-y-4">
-//       <div>
-//         <label className="block text-gray-600 mb-1" htmlFor="email">
-//           Email Address
-//         </label>
-//         <input
-//           type="email"
-//           name="email"
-//           className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-//           placeholder="example@example.com"
-//         />
-//       </div>
-
-//       <div>
-//         <label className="block text-gray-600 mb-1" htmlFor="password">
-//           Password
-//         </label>
-//         <input
-//           type="password"
-//           name="password"
-//           className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-//           placeholder="********"
-//         />
-//       </div>
-
-//       <button
-//         type="submit"
-//         className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition duration-200"
-//       >
-//         Sign In
-//       </button>
-//     </form>
-//   );
-// };
-
-// export default SignInFrom;
+'use client';
 
 import React, { useState } from 'react';
-import { 
-  Mail, 
-  Lock, 
-  Eye, 
-  EyeOff, 
-  ArrowRight, 
-  Shield, 
-  LogIn,
-  Github,
-  Chrome,
-  Facebook,
-  Star,
-  Zap,
-  Award,
-  CheckCircle2
-} from 'lucide-react';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
+import { Mail, Lock, Eye, EyeOff, LogIn, ArrowRight } from 'lucide-react';
 
-// SignIn Form Component
-const SignInFrom = () => {
+const SignInForm = () => {
+  const router = useRouter();
+
+  const [formData, setFormData] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  });
-
-  const handleSignIn = () => {
-    setIsLoading(true);
-    
-    // Simulate API call
-    setTimeout(() => {
-      setIsLoading(false);
-      console.log('Sign in submitted:', formData);
-      // Here you would call your actual signIn function
-      // signIn("credentials", { email: formData.email, password: formData.password, ... })
-    }, 2000);
-  };
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSignIn = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    toast('Signing in...');
+    try {
+      const response = await signIn('credentials', {
+        email: formData.email,
+        password: formData.password,
+        redirect: false,
+      });
+
+      if (response.ok) {
+        toast.success('Logged in successfully!');
+        router.push('/');
+      } else {
+        toast.error('Failed to log in. Please check your credentials.');
+      }
+    } catch (error) {
+      toast.error('An error occurred while signing in.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
-    <div className="space-y-6">
+    <form onSubmit={handleSignIn} className="space-y-6">
       {/* Email */}
       <div className="group">
-        <label className="block text-slate-300 mb-2 font-medium">
-          Email Address
-        </label>
+        <label className="block text-slate-300 mb-2 font-medium">Email Address</label>
         <div className="relative">
           <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5 group-focus-within:text-purple-400 transition-colors" />
           <input
@@ -133,6 +57,7 @@ const SignInFrom = () => {
             onChange={handleInputChange}
             className="w-full pl-12 pr-4 py-4 bg-slate-700/50 border border-slate-600 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all"
             placeholder="Enter your email"
+            required
           />
         </div>
       </div>
@@ -140,10 +65,11 @@ const SignInFrom = () => {
       {/* Password */}
       <div className="group">
         <div className="flex items-center justify-between mb-2">
-          <label className="block text-slate-300 font-medium">
-            Password
-          </label>
-          <a href="#" className="text-purple-400 hover:text-purple-300 text-sm font-medium transition-colors">
+          <label className="block text-slate-300 font-medium">Password</label>
+          <a
+            href="#"
+            className="text-purple-400 hover:text-purple-300 text-sm font-medium transition-colors"
+          >
             Forgot password?
           </a>
         </div>
@@ -156,6 +82,7 @@ const SignInFrom = () => {
             onChange={handleInputChange}
             className="w-full pl-12 pr-12 py-4 bg-slate-700/50 border border-slate-600 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all"
             placeholder="Enter your password"
+            required
           />
           <button
             type="button"
@@ -176,18 +103,14 @@ const SignInFrom = () => {
             onChange={(e) => setRememberMe(e.target.checked)}
             className="w-4 h-4 bg-slate-700 border border-slate-600 rounded text-purple-500 focus:ring-2 focus:ring-purple-500/20"
           />
-          <label className="text-sm text-slate-400">
-            Remember me for 30 days
-          </label>
+          <label className="text-sm text-slate-400">Remember me for 30 days</label>
         </div>
-        <div className="text-xs text-slate-500">
-          Secure login
-        </div>
+        <div className="text-xs text-slate-500">Secure login</div>
       </div>
 
       {/* Submit Button */}
       <button
-        onClick={handleSignIn}
+        type="submit"
         disabled={isLoading}
         className="group w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-4 rounded-xl font-semibold text-lg hover:from-purple-600 hover:to-pink-600 transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2"
       >
@@ -204,7 +127,8 @@ const SignInFrom = () => {
           </>
         )}
       </button>
-    </div>
+    </form>
   );
 };
-export default SignInFrom
+
+export default SignInForm;
