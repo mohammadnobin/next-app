@@ -17,6 +17,7 @@ import {
   Award,
   TrendingUp
 } from 'lucide-react';
+import Link from 'next/link';
 
 const ProductPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -27,130 +28,50 @@ const ProductPage = () => {
   const [priceRange, setPriceRange] = useState([0, 1000]);
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [wishlist, setWishlist] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch('https://nextjs-first-project-wheat.vercel.app/api/products');
+        const data = await res.json();
+        setProducts(data);
+      } catch (error) {
+        console.error('Failed to fetch products:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+if (loading) {
+    return (
+      <div className=" h-screen pt-[200px]  bg-gradient-to-br from-slate-900 items-center via-purple-900 to-slate-900  gap-6 p-6">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+        {Array.from({ length: 4 }).map((_, i) => (
+          <div
+            key={i}
+            className="animate-pulse bg-slate-800 p-4 rounded-md text-white space-y-3"
+          >
+            <div className="h-48 bg-slate-700 rounded w-full"></div>
+            <div className="h-4 bg-slate-700 rounded w-3/4"></div>
+            <div className="h-4 bg-slate-700 rounded w-1/2"></div>
+            <div className="h-4 bg-slate-700 rounded w-full"></div>
+            <div className="h-48 bg-slate-700 rounded w-full"></div>
+            <div className="h-4 bg-slate-700 rounded w-3/4"></div>
+            <div className="h-4 bg-slate-700 rounded w-1/2"></div>
+            <div className="h-4 bg-slate-700 rounded w-full"></div>
+          </div>
+        ))}
+        </div>
+      </div>
+    );
+  }
   // Mock product data
-  const products = [
-    {
-      id: 1,
-      name: "Premium Wireless Headphones",
-      price: 299,
-      originalPrice: 399,
-      category: "electronics",
-      brand: "AudioTech",
-      image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&h=400&fit=crop",
-      rating: 4.9,
-      reviews: 2847,
-      isNew: false,
-      isFeatured: true,
-      isTrending: true,
-      description: "Experience crystal-clear audio with noise cancellation technology"
-    },
-    {
-      id: 2,
-      name: "Smart Fitness Watch",
-      price: 199,
-      originalPrice: 249,
-      category: "electronics",
-      brand: "FitTech",
-      image: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=500&h=400&fit=crop",
-      rating: 4.8,
-      reviews: 1923,
-      isNew: true,
-      isFeatured: false,
-      isTrending: true,
-      description: "Track your health and fitness goals with advanced sensors"
-    },
-    {
-      id: 3,
-      name: "Professional Camera Lens",
-      price: 899,
-      originalPrice: 999,
-      category: "photography",
-      brand: "LensMaster",
-      image: "https://images.unsplash.com/photo-1606983340126-99ab4feaa64a?w=500&h=400&fit=crop",
-      rating: 4.9,
-      reviews: 756,
-      isNew: false,
-      isFeatured: true,
-      isTrending: false,
-      description: "Capture stunning photos with this professional-grade lens"
-    },
-    {
-      id: 4,
-      name: "Ergonomic Office Chair",
-      price: 449,
-      originalPrice: 549,
-      category: "furniture",
-      brand: "ComfortZone",
-      image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=500&h=400&fit=crop",
-      rating: 4.7,
-      reviews: 1245,
-      isNew: false,
-      isFeatured: false,
-      isTrending: true,
-      description: "Work comfortably with this ergonomically designed office chair"
-    },
-    {
-      id: 5,
-      name: "Mechanical Gaming Keyboard",
-      price: 159,
-      originalPrice: 199,
-      category: "electronics",
-      brand: "GamePro",
-      image: "https://images.unsplash.com/photo-1541140532154-b024d705b90a?w=500&h=400&fit=crop",
-      rating: 4.6,
-      reviews: 892,
-      isNew: true,
-      isFeatured: false,
-      isTrending: false,
-      description: "Enhance your gaming experience with mechanical switches"
-    },
-    {
-      id: 6,
-      name: "Minimalist Desk Lamp",
-      price: 89,
-      originalPrice: 129,
-      category: "furniture",
-      brand: "LightCraft",
-      image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=500&h=400&fit=crop",
-      rating: 4.5,
-      reviews: 634,
-      isNew: false,
-      isFeatured: false,
-      isTrending: false,
-      description: "Illuminate your workspace with adjustable LED lighting"
-    },
-    {
-      id: 7,
-      name: "Wireless Charging Pad",
-      price: 39,
-      originalPrice: 59,
-      category: "electronics",
-      brand: "ChargeTech",
-      image: "https://images.unsplash.com/photo-1609592806585-bc9adad4b8ed?w=500&h=400&fit=crop",
-      rating: 4.4,
-      reviews: 1567,
-      isNew: true,
-      isFeatured: false,
-      isTrending: true,
-      description: "Fast wireless charging for all compatible devices"
-    },
-    {
-      id: 8,
-      name: "Premium Coffee Maker",
-      price: 299,
-      originalPrice: 379,
-      category: "appliances",
-      brand: "BrewMaster",
-      image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=500&h=400&fit=crop",
-      rating: 4.8,
-      reviews: 923,
-      isNew: false,
-      isFeatured: true,
-      isTrending: false,
-      description: "Brew the perfect cup with programmable settings"
-    }
-  ];
+
 
   const categories = [
     { id: 'all', name: 'All Products', count: products.length },
@@ -367,10 +288,10 @@ const ProductPage = () => {
         </div>
 
         {/* Product Grid */}
-        <div className={viewMode === 'grid' ? 'grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6' : 'space-y-6'}>
+        <div className={viewMode === 'grid' ? 'grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6' : 'space-y-6'}>
           {sortedProducts.map((product) => (
             <div
-              key={product.id}
+              key={product._id}
               className={`group bg-gradient-to-b from-slate-800/30 to-slate-900/30 rounded-2xl overflow-hidden border border-slate-700/30 hover:border-purple-500/50 transition-all duration-300 hover:transform hover:scale-105 ${
                 viewMode === 'list' ? 'flex' : ''
               }`}
@@ -464,13 +385,12 @@ const ProductPage = () => {
                 </div>
 
                 <div className="flex space-x-2">
-                  <button className="flex-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-lg font-medium hover:from-purple-600 hover:to-pink-600 transition-all duration-300 flex items-center justify-center space-x-2">
-                    <ShoppingCart className="w-4 h-4" />
-                    <span>Add to Cart</span>
+                  <Link className='w-full' href={`/product/${product._id}`}>
+                  <button className="flex-1 w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-lg font-medium hover:from-purple-600 hover:to-pink-600 transition-all duration-300 flex items-center justify-center space-x-2">
+                    <span>Viwe Details</span>
                   </button>
-                  <button className="px-4 py-3 bg-slate-700/50 text-slate-300 hover:text-white hover:bg-slate-600/50 rounded-lg transition-all duration-300">
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
+                  </Link>
+                  
                 </div>
               </div>
             </div>

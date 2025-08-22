@@ -12,7 +12,7 @@ import ProductsPage from './addProduct/page';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-const layout = ({children}) => {
+const Layout = ({children}) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState('overview');
   const router = useRouter()
@@ -54,7 +54,7 @@ const layout = ({children}) => {
         {/* Drawer Header */}
         <div className="flex items-center justify-between p-4 border-b border-white/20">
     
-          <div onClick={handlclick} className="flex cursor-pointer items-center space-x-2">
+          <div onClick={handlclick} className="flex  items-center space-x-2">
             <div className="w-10 h-10 bg-gradient-to-tr from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
               <ShoppingBag className="w-6 h-6 text-white" />
             </div>
@@ -129,4 +129,4 @@ const layout = ({children}) => {
   );
 };
 
-export default layout;
+export default Layout;

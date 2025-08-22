@@ -68,9 +68,22 @@ const Navbar = () => {
             <div className="hidden md:flex items-center space-x-4">
               {status === "authenticated" ? (
                 <>
-                <div className="size-[50px] rounded-full bg-white/20 p-[1px]">
-                  <Image src={session.user.image} alt="seksdf" className="w-full h-full rounded-full " width={10} height={10} />
-                </div>
+               <div className="size-[50px] rounded-full bg-white/20 p-[1px]">
+  {session?.user?.image ? (
+    <Image
+      src={session.user.image}
+      alt="User Profile"
+      className="w-full h-full rounded-full"
+      width={50}
+      height={50}
+    />
+  ) : (
+    <div className="w-full h-full flex items-center justify-center text-white text-sm rounded-full bg-slate-700">
+      ?
+    </div>
+  )}
+</div>
+
           <button
             onClick={logOut}
             className="bg-gradient-to-r cursor-pointer from-purple-500 to-pink-500 text-white px-6 py-2 rounded-full font-medium hover:from-purple-600 hover:to-pink-600 transition-all transform hover:scale-105"

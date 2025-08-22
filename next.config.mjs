@@ -1,9 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-      images: {
+  images: {
     domains: [
-        'images.unsplash.com',
-         'lh3.googleusercontent.com',
+      "images.unsplash.com",
+      "lh3.googleusercontent.com",
+      "www.tylebahehesyj.ws",
     ],
   },
 };

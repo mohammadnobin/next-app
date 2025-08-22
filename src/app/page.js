@@ -3,9 +3,37 @@ import { ChevronDown, ShoppingBag, Star, ArrowRight, Menu, X, Zap, Shield, Globe
 import ProjectSections from './Components/Home/ProjectSections';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
-export default function page() {
+export default function Page() {
 
+
+    const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch('https://nextjs-first-project-wheat.vercel.app/api/products');
+        const data = await res.json();
+        setProducts(data.slice(0, 3)); // ✅ Show only 3 products
+      } catch (error) {
+        console.error('Failed to fetch products:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+    if (loading) {
+    return (
+      <div className="w-full h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex justify-center items-center">
+
+      </div>
+    );
+  }
 
   const features = [
     {
@@ -30,32 +58,7 @@ export default function page() {
     }
   ];
 
-  const products = [
-    {
-      id: 1,
-      name: "Premium Wireless Headphones",
-      price: "$299",
-      image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop",
-      rating: 4.9,
-      reviews: 2847
-    },
-    {
-      id: 2,
-      name: "Smart Fitness Watch",
-      price: "$199",
-      image: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=400&h=300&fit=crop",
-      rating: 4.8,
-      reviews: 1923
-    },
-    {
-      id: 3,
-      name: "Professional Camera Lens",
-      price: "$899",
-      image: "https://images.unsplash.com/photo-1606983340126-99ab4feaa64a?w=400&h=300&fit=crop",
-      rating: 4.9,
-      reviews: 756
-    }
-  ];
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
@@ -129,7 +132,7 @@ export default function page() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {products.map((product, index) => (
               <div 
-                key={product.id}
+                key={product._id}
                 className="group bg-gradient-to-b from-slate-800/30 to-slate-900/30 rounded-2xl overflow-hidden border border-slate-700/30 hover:border-purple-500/50 transition-all duration-300 hover:transform hover:scale-105"
               >
                 <div className="relative overflow-hidden">
@@ -154,10 +157,12 @@ export default function page() {
                   <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-purple-300 transition-colors">
                     {product.name}
                   </h3>
+                  <Link href={`/product/${product._id}`}>
                   <button className="w-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 text-purple-300 py-3 rounded-lg font-medium hover:from-purple-500 hover:to-pink-500 hover:text-white transition-all duration-300 flex items-center justify-center space-x-2">
                     <span>View Details</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
+                  </Link>
                 </div>
               </div>
             ))}

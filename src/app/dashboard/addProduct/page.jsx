@@ -1,97 +1,145 @@
+'use client';
+import React from 'react';
+import toast from 'react-hot-toast';
 
-  
-  const ProductsPage = () => (
-    <div className="p-6">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-white">Products</h1>
-        <button className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all">
-          Add Product
-        </button>
-      </div>
+const AddProductPage = () => {
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-      {/* Products Table */}
-      <div className="bg-white/10 backdrop-blur-sm rounded-lg shadow overflow-hidden border border-white/20">
-        <table className="w-full">
-          <thead className="bg-white/5">
-            <tr>
-              <th className="text-left p-4 font-medium text-gray-300">Product</th>
-              <th className="text-left p-4 font-medium text-gray-300">Price</th>
-              <th className="text-left p-4 font-medium text-gray-300">Stock</th>
-              <th className="text-left p-4 font-medium text-gray-300">Status</th>
-              <th className="text-left p-4 font-medium text-gray-300">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-white/10">
-            <tr>
-              <td className="p-4">
-                <div className="flex items-center">
-                  <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg mr-3"></div>
-                  <div>
-                    <p className="font-medium text-white">iPhone 15 Pro</p>
-                    <p className="text-sm text-gray-300">Electronics</p>
-                  </div>
-                </div>
-              </td>
-              <td className="p-4 text-white">$1,199</td>
-              <td className="p-4 text-white">25</td>
-              <td className="p-4">
-                <span className="bg-green-500/20 text-green-400 px-2 py-1 rounded-full text-sm border border-green-400/20">
-                  Active
-                </span>
-              </td>
-              <td className="p-4">
-                <button className="text-purple-400 hover:text-purple-300 mr-2">Edit</button>
-                <button className="text-pink-400 hover:text-pink-300">Delete</button>
-              </td>
-            </tr>
-            <tr>
-              <td className="p-4">
-                <div className="flex items-center">
-                  <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg mr-3"></div>
-                  <div>
-                    <p className="font-medium text-white">MacBook Air M3</p>
-                    <p className="text-sm text-gray-300">Electronics</p>
-                  </div>
-                </div>
-              </td>
-              <td className="p-4 text-white">$1,499</td>
-              <td className="p-4 text-white">12</td>
-              <td className="p-4">
-                <span className="bg-green-500/20 text-green-400 px-2 py-1 rounded-full text-sm border border-green-400/20">
-                  Active
-                </span>
-              </td>
-              <td className="p-4">
-                <button className="text-purple-400 hover:text-purple-300 mr-2">Edit</button>
-                <button className="text-pink-400 hover:text-pink-300">Delete</button>
-              </td>
-            </tr>
-            <tr>
-              <td className="p-4">
-                <div className="flex items-center">
-                  <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg mr-3"></div>
-                  <div>
-                    <p className="font-medium text-white">AirPods Pro</p>
-                    <p className="text-sm text-gray-300">Electronics</p>
-                  </div>
-                </div>
-              </td>
-              <td className="p-4 text-white">$249</td>
-              <td className="p-4 text-white">0</td>
-              <td className="p-4">
-                <span className="bg-red-500/20 text-red-400 px-2 py-1 rounded-full text-sm border border-red-400/20">
-                  Out of Stock
-                </span>
-              </td>
-              <td className="p-4">
-                <button className="text-purple-400 hover:text-purple-300 mr-2">Edit</button>
-                <button className="text-pink-400 hover:text-pink-300">Delete</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+  const form = e.target;
+  const formData = new FormData(form);
+
+  const product = {
+    name: formData.get('name'),
+    price: parseFloat(formData.get('price')),
+    category: formData.get('category'),
+    brand: formData.get('brand'),
+    image: formData.get('image'),
+    description: formData.get('description'),
+  };
+
+  try {
+    const res = await fetch('https://nextjs-first-project-wheat.vercel.app/api/products', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(product),
+    });
+
+    const postData = await res.json();
+
+    if (postData?.acknowledged) {
+      toast.success("✅ Product uploaded successfully!");
+      form.reset(); // Optional: Clear the form
+    } else {
+      toast.error("❌ Failed to upload product.");
+    }
+
+  } catch (error) {
+    console.error(error);
+    toast.error("🚨 Something went wrong while uploading.");
+  }
+};
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-6">
+      <div className="max-w-4xl mx-auto">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-white mb-2">
+            Add New Product
+          </h1>
+          <p className="text-gray-300">
+            Create a new product listing with detailed information
+          </p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-5">
+          {/* Name */}
+          <div>
+            <label className="block text-slate-300 mb-1">Product Name</label>
+            <input
+              type="text"
+              name="name"
+              required
+              placeholder="e.g. Premium Coffee Maker"
+              className="w-full px-4 py-2 rounded-md bg-slate-700 text-white border border-slate-600 focus:outline-none focus:ring-2 focus:ring-purple-500"
+            />
+          </div>
+
+          {/* Price */}
+          <div>
+            <label className="block text-slate-300 mb-1">Price ($)</label>
+            <input
+              type="number"
+              name="price"
+              required
+              placeholder="e.g. 299"
+              className="w-full px-4 py-2 rounded-md bg-slate-700 text-white border border-slate-600 focus:outline-none focus:ring-2 focus:ring-purple-500"
+            />
+          </div>
+
+          {/* Category */}
+          <div>
+            <label className="block text-slate-300 mb-1">Category</label>
+            <input
+              type="text"
+              name="category"
+              required
+              placeholder="e.g. appliances"
+              className="w-full px-4 py-2 rounded-md bg-slate-700 text-white border border-slate-600 focus:outline-none focus:ring-2 focus:ring-purple-500"
+            />
+          </div>
+
+          {/* Brand */}
+          <div>
+            <label className="block text-slate-300 mb-1">Brand</label>
+            <input
+              type="text"
+              name="brand"
+              required
+              placeholder="e.g. BrewMaster"
+              className="w-full px-4 py-2 rounded-md bg-slate-700 text-white border border-slate-600 focus:outline-none focus:ring-2 focus:ring-purple-500"
+            />
+          </div>
+
+          {/* Image URL */}
+          <div>
+            <label className="block text-slate-300 mb-1">Image URL</label>
+            <input
+              type="url"
+              name="image"
+              required
+              placeholder="https://images.unsplash.com/..."
+              className="w-full px-4 py-2 rounded-md bg-slate-700 text-white border border-slate-600 focus:outline-none focus:ring-2 focus:ring-purple-500"
+            />
+          </div>
+
+          {/* Description */}
+          <div>
+            <label className="block text-slate-300 mb-1">Description</label>
+            <textarea
+              name="description"
+              required
+              placeholder="Brew the perfect cup with programmable settings"
+              rows={4}
+              className="w-full px-4 py-2 rounded-md bg-slate-700 text-white border border-slate-600 focus:outline-none focus:ring-2 focus:ring-purple-500"
+            />
+          </div>
+
+          {/* Submit Button */}
+          <div className="text-center pt-4">
+            <button
+              type="submit"
+              className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold py-2 px-6 rounded-full transition-all duration-300"
+            >
+              Upload Product
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );
+};
 
-  export default ProductsPage
+export default AddProductPage;

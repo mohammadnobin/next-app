@@ -1,7 +1,8 @@
 import { MongoClient, ServerApiVersion }from'mongodb';
 
 export const collectionNamesObj = {
-    userCollection: 'all_user'
+    userCollection: 'all_user',
+    productsCollection: 'all_products'
 }
 
 
