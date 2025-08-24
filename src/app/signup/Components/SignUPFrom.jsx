@@ -18,8 +18,6 @@ const SignUpForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams()
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -52,37 +50,6 @@ const SignUpForm = () => {
 
   const passwordStrength = getPasswordStrength(formData.password);
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   if (!agreedToTerms) {
-  //     toast.error("You must agree to the terms and conditions");
-  //     return;
-  //   }
-
-  //   setIsLoading(true);
-  //   try {
-  //     const res = await registerUser({
-  //       name: formData.name,
-  //       email: formData.email,
-  //       password: formData.password,
-  //     });
-  //     console.log(res);
-  //     if (res.acknowledged) {
-  //       toast.success("Account created successfully!");
-  //       router.push('/')
-  //       setFormData({ name: "", email: "", password: "" });
-  //       setAgreedToTerms(false);
-  //     } else {
-  //       toast.error("Registration failed");
-  //     }
-  //   } catch (error) {
-  //     toast.error("Something went wrong");
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
-
   const handleSubmit = async (e) => {
   e.preventDefault();
 
@@ -93,7 +60,6 @@ const SignUpForm = () => {
 
   setIsLoading(true);
   try {
-    // প্রথমে রেজিস্ট্রেশন করার চেষ্টা
     const res = await registerUser({
       name: formData.name,
       email: formData.email,
@@ -102,9 +68,7 @@ const SignUpForm = () => {
 
     if (res.acknowledged) {
       toast.success("Account created successfully!");
-        let callbackUrl = pathname.includes("login") ? "/" : pathname;
-    callbackUrl = searchParams.get("callbackUrl") || callbackUrl;
-      // রেজিস্ট্রেশন সফল হলে অটোমেটিক লগইন করার চেষ্টা
+            router.push('/');
       try {
         const response = await signIn('credentials', {
           email: formData.email,
@@ -114,7 +78,7 @@ const SignUpForm = () => {
 
         if (response.ok) {
     toast.success('Logged in successfully!');
-
+     
           setFormData({ name: "", email: "", password: "" });
           setAgreedToTerms(false);
         } else {
@@ -131,7 +95,6 @@ const SignUpForm = () => {
     toast.error("Something went wrong");
   } finally {
     setIsLoading(false);
-      router.push('/');
   }
 };
 

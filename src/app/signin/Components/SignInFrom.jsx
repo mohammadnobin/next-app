@@ -35,7 +35,6 @@ const SignInForm = () => {
 
       if (response.ok) {
         toast.success('Logged in successfully!');
-        // router.push('/');
           router.push(callbackUrl);
       } else {
         toast.error('Failed to log in. Please check your credentials.');
