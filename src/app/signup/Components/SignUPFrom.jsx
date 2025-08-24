@@ -5,7 +5,8 @@ import { User, Mail, Lock, Eye, EyeOff, ArrowRight } from "lucide-react";
 
 import toast from "react-hot-toast";
 import { registerUser } from "@/app/actions/auth/registerUser";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 const SignUpForm = () => {
   const [formData, setFormData] = useState({
@@ -16,7 +17,9 @@ const SignUpForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams()
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -49,36 +52,90 @@ const SignUpForm = () => {
 
   const passwordStrength = getPasswordStrength(formData.password);
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   if (!agreedToTerms) {
+  //     toast.error("You must agree to the terms and conditions");
+  //     return;
+  //   }
+
+  //   setIsLoading(true);
+  //   try {
+  //     const res = await registerUser({
+  //       name: formData.name,
+  //       email: formData.email,
+  //       password: formData.password,
+  //     });
+  //     console.log(res);
+  //     if (res.acknowledged) {
+  //       toast.success("Account created successfully!");
+  //       router.push('/')
+  //       setFormData({ name: "", email: "", password: "" });
+  //       setAgreedToTerms(false);
+  //     } else {
+  //       toast.error("Registration failed");
+  //     }
+  //   } catch (error) {
+  //     toast.error("Something went wrong");
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (!agreedToTerms) {
-      toast.error("You must agree to the terms and conditions");
-      return;
-    }
+  if (!agreedToTerms) {
+    toast.error("You must agree to the terms and conditions");
+    return;
+  }
 
-    setIsLoading(true);
-    try {
-      const res = await registerUser({
-        name: formData.name,
-        email: formData.email,
-        password: formData.password,
-      });
-      console.log(res);
-      if (res.acknowledged) {
-        toast.success("Account created successfully!");
-        router.push('/')
-        setFormData({ name: "", email: "", password: "" });
-        setAgreedToTerms(false);
-      } else {
-        toast.error("Registration failed");
+  setIsLoading(true);
+  try {
+    // প্রথমে রেজিস্ট্রেশন করার চেষ্টা
+    const res = await registerUser({
+      name: formData.name,
+      email: formData.email,
+      password: formData.password,
+    });
+
+    if (res.acknowledged) {
+      toast.success("Account created successfully!");
+        let callbackUrl = pathname.includes("login") ? "/" : pathname;
+    callbackUrl = searchParams.get("callbackUrl") || callbackUrl;
+      // রেজিস্ট্রেশন সফল হলে অটোমেটিক লগইন করার চেষ্টা
+      try {
+        const response = await signIn('credentials', {
+          email: formData.email,
+          password: formData.password,
+          redirect: false,
+        });
+
+        if (response.ok) {
+    toast.success('Logged in successfully!');
+
+          setFormData({ name: "", email: "", password: "" });
+          setAgreedToTerms(false);
+        } else {
+          toast.error('Failed to log in. Please check your credentials.');
+        }
+      } catch (error) {
+        toast.error('An error occurred while signing in.');
       }
-    } catch (error) {
-      toast.error("Something went wrong");
-    } finally {
-      setIsLoading(false);
+
+    } else {
+      toast.error("Registration failed");
     }
-  };
+  } catch (error) {
+    toast.error("Something went wrong");
+  } finally {
+    setIsLoading(false);
+      router.push('/');
+  }
+};
+
+
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">

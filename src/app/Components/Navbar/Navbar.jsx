@@ -15,7 +15,6 @@ const Navbar = () => {
   console.log(session);
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
-  console.log(session);
 
   const logOut = () => {
     setIsOpen(false);

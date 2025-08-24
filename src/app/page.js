@@ -14,7 +14,7 @@ export default function Page() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch('https://nextjs-first-project-wheat.vercel.app/api/products');
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products`);
         const data = await res.json();
         setProducts(data.slice(0, 3)); // ✅ Show only 3 products
       } catch (error) {
@@ -27,21 +27,21 @@ export default function Page() {
     fetchProducts();
   }, []);
 
-    if (loading) {
-    return (
-    <div className="w-full h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex justify-center items-center">
-      <div className="flex flex-col items-center space-y-6">
-        {/* Glowing Spinner */}
-        <div className="w-16 h-16 border-4 border-purple-400 border-t-transparent rounded-full animate-spin shadow-lg"></div>
+  //   if (loading) {
+  //   return (
+  //   <div className="w-full h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex justify-center items-center">
+  //     <div className="flex flex-col items-center space-y-6">
+  //       {/* Glowing Spinner */}
+  //       <div className="w-16 h-16 border-4 border-purple-400 border-t-transparent rounded-full animate-spin shadow-lg"></div>
 
-        {/* Text */}
-        <p className="text-white text-lg font-semibold tracking-wide animate-pulse">
-          Loading, please wait...
-        </p>
-      </div>
-    </div>
-    );
-  }
+  //       {/* Text */}
+  //       <p className="text-white text-lg font-semibold tracking-wide animate-pulse">
+  //         Loading, please wait...
+  //       </p>
+  //     </div>
+  //   </div>
+  //   );
+  // }
 
   const features = [
     {
@@ -123,8 +123,25 @@ export default function Page() {
           <ChevronDown className="w-8 h-8 text-slate-400" />
         </div>
       </section>
+      
         {/* Product Highlights */}
-      <section  className="py-24 relative">
+        {loading ? 
+  (
+    <div className="w-full h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex justify-center items-center">
+      <div className="flex flex-col items-center space-y-6">
+        {/* Glowing Spinner */}
+        <div className="w-16 h-16 border-4 border-purple-400 border-t-transparent rounded-full animate-spin shadow-lg"></div>
+
+        {/* Text */}
+        <p className="text-white text-lg font-semibold tracking-wide animate-pulse">
+          Loading, please wait...
+        </p>
+      </div>
+    </div>
+  )
+         :
+          (
+                  <section  className="py-24 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
@@ -185,6 +202,9 @@ export default function Page() {
           </div>
         </div>
       </section>
+
+          )}
+
 
       {/* Features Section */}
       <section className="pb-24 relative">

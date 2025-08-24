@@ -2,13 +2,14 @@
 
 import React, { useState } from 'react';
 import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { Mail, Lock, Eye, EyeOff, LogIn, ArrowRight } from 'lucide-react';
 
 const SignInForm = () => {
   const router = useRouter();
-
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
@@ -23,6 +24,8 @@ const SignInForm = () => {
     e.preventDefault();
     setIsLoading(true);
     toast('Signing in...');
+        let callbackUrl = pathname.includes("login") ? "/" : pathname;
+    callbackUrl = searchParams.get("callbackUrl") || callbackUrl;
     try {
       const response = await signIn('credentials', {
         email: formData.email,
@@ -32,7 +35,8 @@ const SignInForm = () => {
 
       if (response.ok) {
         toast.success('Logged in successfully!');
-        router.push('/');
+        // router.push('/');
+          router.push(callbackUrl);
       } else {
         toast.error('Failed to log in. Please check your credentials.');
       }

@@ -9,11 +9,13 @@ export const middleware = async (req) => {
         secureCookie: process.env.NODE_ENV === "production" ? true : false,
     })
 
+    console.log(token);
+
     if (token) {
 
         return NextResponse.next()
     } else {
-        return NextResponse.redirect(new URL('/signin', req.url))
+        return NextResponse.rewrite(new URL('/signin', req.url))
     }
 
 }
@@ -21,5 +23,6 @@ export const middleware = async (req) => {
 export const config = {
     matcher: [
         '/dashboard/:path*',
+        '/contact',
     ],
 }

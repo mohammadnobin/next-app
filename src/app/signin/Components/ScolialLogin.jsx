@@ -83,17 +83,22 @@
 
 import { FaGoogle } from "react-icons/fa";
 import { signIn, useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 
 export default function SocialLogin() {
   const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams()
   const session = useSession();
   const [isLoading, setIsLoading] = useState(false);
+              let callbackUrl = pathname.includes("login") ? "/" : pathname;
+    callbackUrl = searchParams.get("callbackUrl") || callbackUrl;
 
   const handleSocialLogin = async (providerName) => {
     setIsLoading(true);
+
     try {
       await signIn(providerName);
     } catch (error) {
@@ -104,8 +109,8 @@ export default function SocialLogin() {
 
   useEffect(() => {
     if (session?.status === "authenticated") {
-      router.push("/");
-      toast.success("Successfully Logged In!");
+          router.push(callbackUrl);
+    toast.success('Logged in successfully!');
       setIsLoading(false);
     }
   }, [session?.status]);
