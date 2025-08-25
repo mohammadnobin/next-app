@@ -9,7 +9,6 @@ export const middleware = async (req) => {
         secureCookie: process.env.NODE_ENV === "production" ? true : false,
     })
 
-    console.log(token);
 
     if (token) {
 

@@ -10,7 +10,7 @@ export default function SocialLogin() {
   const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
 
-  let callbackUrl = pathname.includes("login") ? "/" : pathname;
+  let callbackUrl = pathname.includes("signin") ? "/" : pathname;
   callbackUrl = searchParams.get("callbackUrl") || callbackUrl;
 
   const handleSocialLogin = async (providerName) => {

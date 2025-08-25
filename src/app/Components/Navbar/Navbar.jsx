@@ -12,7 +12,6 @@ const Navbar = () => {
   const pathName = usePathname()
   
   const { data: session, status } = useSession();
-  console.log(session);
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
 

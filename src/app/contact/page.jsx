@@ -47,7 +47,6 @@ const ContactPage = () => {
     // Simulate API call
     setTimeout(() => {
       setIsLoading(false);
-      console.log('Form submitted:', formData);
       // Reset form
       setFormData({
         name: '',

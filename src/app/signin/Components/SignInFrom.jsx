@@ -24,7 +24,7 @@ const SignInForm = () => {
     e.preventDefault();
     setIsLoading(true);
     toast('Signing in...');
-        let callbackUrl = pathname.includes("login") ? "/" : pathname;
+        let callbackUrl = pathname.includes("signin") ? "/" : pathname;
     callbackUrl = searchParams.get("callbackUrl") || callbackUrl;
     try {
       const response = await signIn('credentials', {
@@ -35,7 +35,7 @@ const SignInForm = () => {
 
       if (response.ok) {
         toast.success('Logged in successfully!');
-          router.push(callbackUrl);
+          router.replace(callbackUrl); 
       } else {
         toast.error('Failed to log in. Please check your credentials.');
       }

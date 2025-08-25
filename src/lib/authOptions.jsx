@@ -18,7 +18,6 @@ export const authOptions = {
       },
       async authorize(credentials, req) {
         const user = await loginUSer(credentials);
-        console.log(user);
 
         if (user) {
           return user;
@@ -37,8 +36,6 @@ export const authOptions = {
   },
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
-      // Console these to check necessary properites
-      //console.log({ user, account, profile, email, credentials })
       if (account) {
         const { providerAccountId, provider } = account;
         const { email: user_email, image, name } = user;

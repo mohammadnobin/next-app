@@ -1,6 +1,7 @@
 import { ObjectId } from "mongodb";
 import dbConnect, { collectionNamesObj } from "@/lib/dbConnect";
 import { NextResponse } from "next/server";
+import toast from "react-hot-toast";
 
 export const GET = async (req, { params }) => {
   try {
@@ -19,7 +20,7 @@ export const GET = async (req, { params }) => {
 
     return NextResponse.json(product);
   } catch (error) {
-    console.error("Error fetching single product:", error);
+    toast("Error fetching single product:", error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 };

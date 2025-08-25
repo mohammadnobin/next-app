@@ -19,7 +19,7 @@ const handleSubmit = async (e) => {
   };
 
   try {
-    const res = await fetch('https://nextjs-first-project-wheat.vercel.app/api/products', {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -37,7 +37,6 @@ const handleSubmit = async (e) => {
     }
 
   } catch (error) {
-    console.error(error);
     toast.error("🚨 Something went wrong while uploading.");
   }
 };
