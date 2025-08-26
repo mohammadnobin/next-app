@@ -14,6 +14,7 @@ const SignInForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const callbackUrl = searchParams.get('callbackUrl') || '/';
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -24,8 +25,8 @@ const SignInForm = () => {
     e.preventDefault();
     setIsLoading(true);
     toast('Signing in...');
-        let callbackUrl = pathname.includes("signin") ? "/" : pathname;
-    callbackUrl = searchParams.get("callbackUrl") || callbackUrl;
+    //     let callbackUrl = pathname.includes("signin") ? "/" : pathname;
+    // callbackUrl = searchParams.get("callbackUrl") || callbackUrl;
     try {
       const response = await signIn('credentials', {
         email: formData.email,
@@ -35,7 +36,7 @@ const SignInForm = () => {
 
       if (response.ok) {
         toast.success('Logged in successfully!');
-          router.replace(callbackUrl); 
+          router.push(callbackUrl); 
       } else {
         toast.error('Failed to log in. Please check your credentials.');
       }
