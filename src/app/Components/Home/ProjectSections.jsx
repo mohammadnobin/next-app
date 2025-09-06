@@ -139,12 +139,12 @@ const stats = [
           {/* CTA Section */}
           <div className="text-center bg-gradient-to-r from-purple-600/20 via-pink-600/20 to-cyan-600/20 backdrop-blur-lg border border-white/20 rounded-3xl p-12">
             <div className="max-w-4xl mx-auto">
-              <h2 className="text-4xl lg:text-6xl font-bold text-white mb-6">
+              <h5 className="text-4xl lg:text-6xl font-bold text-white mb-6">
                 Ready to Build the
                 <span className="block bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
                   Future Together?
                 </span>
-              </h2>
+              </h5>
               <p className="text-xl text-gray-300 mb-8 leading-relaxed">
                 Join thousands of developers who are already transforming their ideas into 
                 reality with our powerful platform and cutting-edge tools.
