@@ -1,3 +1,4 @@
+// this is api for fron end
 import { ObjectId } from "mongodb";
 import dbConnect, { collectionNamesObj } from "@/lib/dbConnect";
 import { NextResponse } from "next/server";
