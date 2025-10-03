@@ -1,4 +1,4 @@
-// lib/auth.js
+
 
 import { getToken } from "next-auth/jwt";
 
